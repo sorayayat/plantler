@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="UTF-8">
+<head>
+    <title>main</title>
+    <link rel="stylesheet" href="/static.css">
+</head>
+<body>
+<div>
+    <div th:class="container" style="">
+        <form th:action="@{/save-plant}" method="post">
+            <div><label>별명: <input type="text"></label>
+            <div><label>식물명: <input type="text" placeholder="ex)몬스테라"></label></div>
+            <!--파종일 넣기-->
+            <label for="start">Start date:</label>
+            <input type="date" id="start" name="trip-start" value="2024-07-22" min="2000-01-01" max="2030-12-31"/>
+                <div><button>등록!</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

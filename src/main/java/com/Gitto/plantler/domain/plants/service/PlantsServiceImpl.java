@@ -5,10 +5,11 @@ import com.Gitto.plantler.domain.plants.plantdto.PlantDTO;
 import com.Gitto.plantler.domain.plants.repository.PlantsRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
-public class PlantsServiceImpl implements PlantsService{
+public class PlantsServiceImpl implements PlantsService {
 
     private final PlantsRepository plantsRepository;
 
@@ -23,11 +24,15 @@ public class PlantsServiceImpl implements PlantsService{
 
     @Override
     public void savePlant(PlantDTO plantDTO) {
-        Plants plant = new Plants();
-
-        plant.setNickname(plant.getNickname());
-        plant.setPlantName(plant.getPlantName());
-
-        plantsRepository.save(plant);
+        try {
+            Plants plant = new Plants();
+            plant.setNickname(plant.getNickname());
+            plant.setPlantName(plant.getPlantName());
+            plant.setSowingDate(LocalDate.now());
+            plantsRepository.save(plant);
+            System.out.println("성공");
+        } catch (Exception e) {
+            throw new IllegalArgumentException("등록에 실패");
+        }
     }
 }

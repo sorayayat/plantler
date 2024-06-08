@@ -8,5 +8,5 @@ import java.util.List;
 public interface PlantsRepository extends JpaRepository<Plants, Long> {
 
     // 회원이 가지고 있는 식물 확인
-    List<Plants> findPlantsById(Long Id);
+    List<Plants> findPlantsByPlantId(Long  plantId);
 }

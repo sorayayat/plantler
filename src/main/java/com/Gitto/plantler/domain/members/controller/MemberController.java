@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController {
 
     @Autowired
-    private MemberRepository memberRepository;
+    private final MemberRepository memberRepository;
     private final MemberService memberService;
 
     @Autowired
-    public MemberController(MemberService memberService) {
+    public MemberController(MemberRepository memberRepository, MemberService memberService) {
+        this.memberRepository = memberRepository;
         this.memberService = memberService;
     }
 
@@ -44,5 +45,10 @@ public class MemberController {
         } else {
             return ResponseEntity.ok("이미 사용 중인 사용자명입니다. 다른 이름을 시도해주세요.");
         }
+    }
+
+    @GetMapping("main")
+    public String mainPage(){
+        return "main";
     }
 }
