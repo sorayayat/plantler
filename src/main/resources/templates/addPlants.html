@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="UTF-8">
 <head>
-    <title>main</title>
+    <title>식물 등록</title>
     <link rel="stylesheet" href="/static.css">
 </head>
 <body>
 <div>
     <div th:class="container" style="">
-        <form th:action="@{/save-plant}" method="post">
+        <form th:action="@{/plants/save-plant}" method="post" enctype="multipart/form-data">
+            <!--식물 이미지 등록 추후 추가-->
+            <!--<div><label for="avatar">프로필 사진 등록</label></div>
+            <div><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" /></div>-->
             <div><label>별명: <input type="text"></label>
             <div><label>식물명: <input type="text" placeholder="ex)몬스테라"></label></div>
             <!--파종일 넣기-->
             <label for="start">Start date:</label>
             <input type="date" id="start" name="trip-start" value="2024-07-22" min="2000-01-01" max="2030-12-31"/>
-                <div><button>등록!</button></div>
+                <div><button type="submit">등록</button></div>
             </div>
         </form>
     </div>

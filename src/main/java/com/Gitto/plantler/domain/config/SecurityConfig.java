@@ -24,7 +24,8 @@ public class SecurityConfig {
         http
                 .formLogin((formLogin) -> formLogin
                         .loginPage("/login")
-                        .loginProcessingUrl("/login/login-proc"));
+                        .loginProcessingUrl("/login/login-proc")
+                        .defaultSuccessUrl("/addPlants"));
 
         return http.build();
     }

@@ -37,7 +37,7 @@ public class Plants {
     private LocalDate ventilation;
 
     // 영양제
-    private boolean nutrition;
+    private LocalDate nutrition;
 
     @ManyToOne
     @JoinColumn(name = "member_id")
