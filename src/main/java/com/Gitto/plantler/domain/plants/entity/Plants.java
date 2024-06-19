@@ -23,7 +23,7 @@ public class Plants {
     private String nickname;
 
     // 식물 이름 (종류)
-    @Column()
+    @Column(name = "plant_variety")
     private String plantName;
 
     // 날짜 (파종일)

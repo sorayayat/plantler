@@ -3,6 +3,7 @@ package com.Gitto.plantler.domain.plants.plantdto;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDate;
 
@@ -19,6 +20,7 @@ public class PlantDTO {
     private LocalDate ventilation;
     // 영양제
     private LocalDate nutrition;
+
 
     public PlantDTO(Long id, String nickname, String plantName, LocalDate sowingDate, LocalDate watering, LocalDate ventilation, LocalDate nutrition) {
         this.id = id;

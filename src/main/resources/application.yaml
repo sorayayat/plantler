@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: plantler
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/plantler
+    username: root
+    password: ssss
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQLDialect
+
+logging:
+  level:
+    org.springframework: DEBUG
+    com.plantler: DEBUG  # 'com.plantler' ??? ??? ?? ??
+
+jwt:
+  expiration_time: 86400000
+  secret: steadfastness

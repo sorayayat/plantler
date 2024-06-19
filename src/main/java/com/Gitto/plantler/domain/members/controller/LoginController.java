@@ -2,11 +2,15 @@ package com.Gitto.plantler.domain.members.controller;
 
 import com.Gitto.plantler.domain.members.Memberdto.Memberdto;
 import com.Gitto.plantler.domain.members.service.MemberService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
+@RequestMapping("/api/v1/auth")
 public class LoginController {
     private final MemberService memberService;
 
@@ -19,9 +23,9 @@ public class LoginController {
         return "/login";
     }
 
-    @PostMapping("/login/login-proc")
-    public String login_proc(Memberdto memberdto){
-        System.out.println("successes");
-        return "/Home";
+    @PostMapping("login")
+    public ResponseEntity<String> getMemberProfile(@Valid @RequestBody Memberdto dto) {
+        String token = memberService.Login(dto);
+        return ResponseEntity.status(HttpStatus.OK).body(token);
     }
 }

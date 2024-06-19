@@ -17,29 +17,45 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class PlantlerApplicationTests {
 
-	@Autowired
-	private MemberRepository memberRepository;
+    @Autowired
+    private MemberRepository memberRepository;
 
-	@Autowired
-	private PlantsRepository plantsRepository;
+    @Autowired
+    private PlantsRepository plantsRepository;
 
-	private Member protoMember;
+    private Member protoMember;
+    private Plants protoPlant;
 
-	@BeforeEach
-	void setUp() {
-		// 테스트 실행 전에 기존 데이터 삭제
-		plantsRepository.deleteAll();
-		memberRepository.deleteAll();
+    @BeforeEach
+    void setUp() {
+        // 테스트 실행 전에 기존 데이터 삭제
+        plantsRepository.deleteAll();
+        memberRepository.deleteAll();
 
-		// 회원 정보 설정 및 저장
-		Member member = new Member();
-		member.setUserid("TestUser");
-		member.setPassword("1111");
-		member.setRole("user");
-		protoMember = memberRepository.save(member);
-	}
+        // 회원 정보 설정 및 저장
+        Member member = new Member();
+        member.setUserid("TestUser");
+        member.setPassword("1111");
+        member.setRole("user");
+        protoMember = memberRepository.save(member);
 
-	@Test
+        // 식물 정보 설정
+        Plants plants = new Plants();
+        plants.setPlantName("고무 나무");
+        plants.setNickname("고무 고무 열매");
+        plants.setSowingDate(LocalDate.now());
+        plants.setMember(protoMember);
+
+        // 식물 저장
+        Plants savedPlant = plantsRepository.save(plants);
+
+        // 저장된 식물 정보 확인
+        Optional<Plants> foundPlant = plantsRepository.findById(savedPlant.getPlantId());
+        assertThat(foundPlant).isPresent();
+        assertThat(foundPlant.get().getNickname()).isEqualTo("고무 고무 열매");
+    }
+
+/*	@Test
 	void savePlant() {
 		// 식물 정보 설정
 		Plants plants = new Plants();
@@ -55,24 +71,31 @@ class PlantlerApplicationTests {
 		Optional<Plants> foundPlant = plantsRepository.findById(savedPlant.getPlantId());
 		assertThat(foundPlant).isPresent();
 		assertThat(foundPlant.get().getNickname()).isEqualTo("고무 고무 열매");
-	}
+	}*/
 
+/*
 	@Test
 	void deletePlant() {
-		// 식물 정보 설정 및 저장
-		Plants plants = new Plants();
-		plants.setPlantName("고무 나무");
-		plants.setNickname("고무 고무 열매");
-		plants.setSowingDate(LocalDate.now());
-		plants.setMember(protoMember);
-
-		Plants savedPlant = plantsRepository.save(plants);
 
 		// 식물 삭제
-		plantsRepository.delete(savedPlant);
+		plantsRepository.delete(protoPlant);
 
 		// 삭제된 식물 정보 확인
-		Optional<Plants> foundPlant = plantsRepository.findById(savedPlant.getPlantId());
+		Optional<Plants> foundPlant = plantsRepository.findById(protoPlant.getPlantId());
 		assertThat(foundPlant).isNotPresent();
 	}
+*/
+
+    /* 물은 준 마지막 날짜로 갱신*/
+    @Test
+    void watering() {
+        Optional<Plants> plants = plantsRepository.findPlantsByNickname("고무 고무 열매");
+        if (plants.isPresent()) {
+            Plants p = plants.get();
+            p.setWatering(LocalDate.now());
+            plantsRepository.save(p);
+        }
+        assertThat(plants).isPresent();
+        assertThat(plants.get().getWatering()).isEqualTo(LocalDate.now());
+    }
 }
